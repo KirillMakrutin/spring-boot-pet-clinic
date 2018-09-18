@@ -41,6 +41,7 @@
         <version>2.5.3</version>
         <configuration>
           <goals>install</goals>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
     </plugins>
@@ -48,7 +49,6 @@
 
   <scm>
     <developerConnection>scm:git:https://github.com/KirillMakrutin/spring-boot-pet-clinic.git</developerConnection>
-    <url>https://github.com/spring-projects/spring-boot/spring-boot-starter-parent/pet-clinic</url>
     <tag>HEAD</tag>
   </scm>
 
