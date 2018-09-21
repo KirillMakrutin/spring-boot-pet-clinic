@@ -38,12 +38,12 @@ public class DataLoader implements CommandLineRunner
     System.out.println( "Loaded owners" );
 
     Vet vetTom = new Vet();
-    vetTom.setFirstName( "Tom" );
+    vetTom.setFirstName( "Bob" );
     vetTom.setLastName( "Hardy" );
     vetService.save( vetTom );
 
     Vet vetCarl = new Vet();
-    vetCarl.setFirstName( "Carl" );
+    vetCarl.setFirstName( "Clara" );
     vetCarl.setLastName( "Pup" );
     vetService.save( vetCarl );
 

@@ -7,10 +7,32 @@
 <body>
 <h1 th:text="'List of Owners'">Owners</h1>
 
-<ul th:each="owner : ${owners}">
-  <li th:remove="all">John Snow</li>
-  <li th:remove="all">Lisa Snow</li>
-  <li th:text="${owner.id + ': ' + owner.firstName + ' ' + owner.lastName}">Betsy Snow</li>
-</ul>
+<table>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>First Name</th>
+    <th>last Name</th>
+  </tr>
+  </thead>
+  <tbody th:each="owner : ${owners}">
+  <tr th:remove="all">
+    <td>99</td>
+    <td>John</td>
+    <td>Snow</td>
+  </tr>
+  <tr th:remove="all">
+    <td>100</td>
+    <td>Lisa</td>
+    <td>Snow</td>
+  </tr>
+  <tr>
+    <td th:text="${owner.id}">101</td>
+    <td th:text="${owner.firstName}">Betsy</td>
+    <td th:text="${owner.lastName}">Snow</td>
+  </tr>
+  </tbody>
+</table>
+
 </body>
 </html>

@@ -7,11 +7,32 @@
 <body>
 <h1 th:text="'List of Vets'">Vets</h1>
 
-<ul th:each="vet : ${vets}">
-  <li th:remove="all">John Snow</li>
-  <li th:remove="all">Lisa Snow</li>
-  <li th:text="${vet.id + ': ' + vet.firstName + ' ' + vet.lastName}">Betsy Snow</li>
-</ul>
+<table>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>First Name</th>
+    <th>last Name</th>
+  </tr>
+  </thead>
+  <tbody th:each="vet : ${vets}">
+  <tr th:remove="all">
+    <td>99</td>
+    <td>John</td>
+    <td>Snow</td>
+  </tr>
+  <tr th:remove="all">
+    <td>100</td>
+    <td>Lisa</td>
+    <td>Snow</td>
+  </tr>
+  <tr>
+    <td th:text="${vet.id}">101</td>
+    <td th:text="${vet.firstName}">Betsy</td>
+    <td th:text="${vet.lastName}">Snow</td>
+  </tr>
+  </tbody>
+</table>
 
 </body>
 </html>
