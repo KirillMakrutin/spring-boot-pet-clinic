@@ -19,9 +19,10 @@ public class VetController
     vetTom.setLastName( "Broddy" );
 
     Vet vetCarl = new Vet();
-    vetCarl.setFirstName( "Tom" );
+    vetCarl.setFirstName( "Carl" );
     vetCarl.setLastName( "Snow" );
     model.addAttribute( "vets", Arrays.asList( vetTom, vetCarl ) );
+
     return "vets/index";
   }
 }
