@@ -10,7 +10,7 @@
 <ul th:each="vet : ${vets}">
   <li th:remove="all">John Snow</li>
   <li th:remove="all">Lisa Snow</li>
-  <li th:text="${vet.firstName + ' ' + vet.lastName}">Betsy Snow</li>
+  <li th:text="${vet.id + ': ' + vet.firstName + ' ' + vet.lastName}">Betsy Snow</li>
 </ul>
 
 </body>

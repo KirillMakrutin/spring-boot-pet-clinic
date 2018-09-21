@@ -1,5 +1,6 @@
 package com.kmakrutin.petclinic.bootstrap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -7,8 +8,6 @@ import com.kmakrutin.petclinic.model.Owner;
 import com.kmakrutin.petclinic.model.Vet;
 import com.kmakrutin.petclinic.service.OwnerService;
 import com.kmakrutin.petclinic.service.VetService;
-import com.kmakrutin.petclinic.service.map.OwnerMapService;
-import com.kmakrutin.petclinic.service.map.VetMapService;
 
 @Component
 public class DataLoader implements CommandLineRunner
@@ -16,14 +15,15 @@ public class DataLoader implements CommandLineRunner
   private final OwnerService ownerService;
   private final VetService vetService;
 
-  public DataLoader()
+  @Autowired
+  public DataLoader( OwnerService ownerService, VetService vetService )
   {
-    this.ownerService = new OwnerMapService();
-    this.vetService = new VetMapService();
+    this.ownerService = ownerService;
+    this.vetService = vetService;
   }
 
   @Override
-  public void run( String... args ) throws Exception
+  public void run( String... args )
   {
     Owner ownerTom = new Owner();
     ownerTom.setFirstName( "Tom" );
