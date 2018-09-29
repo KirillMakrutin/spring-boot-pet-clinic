@@ -24,13 +24,6 @@ public class OwnerController
   @GetMapping( { "", "/index", "/index.html" } )
   public String list( Model model )
   {
-    Owner ownerTom = new Owner();
-    ownerTom.setFirstName( "Tom" );
-    ownerTom.setLastName( "Broddy" );
-
-    Owner ownerCarl = new Owner();
-    ownerCarl.setFirstName( "Carl" );
-    ownerCarl.setLastName( "Snow" );
     model.addAttribute( "owners", ownerService.findAll() );
 
     return "owners/index";

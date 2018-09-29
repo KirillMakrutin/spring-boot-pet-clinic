@@ -1,7 +1,9 @@
 package com.kmakrutin.petclinic.model;
 
+import javax.persistence.Transient;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Owner extends Person {
     private String address;
@@ -39,5 +41,12 @@ public class Owner extends Person {
 
     public void setPets(Set<Pet> pets) {
         this.pets = pets;
+    }
+
+    @Transient
+    public String getPetNames() {
+        return pets.stream()
+                .map(pet -> pet.getName() + (pet.getPetType() != null ? " is a " + pet.getPetType().getName() : ""))
+                .collect(Collectors.joining(", "));
     }
 }

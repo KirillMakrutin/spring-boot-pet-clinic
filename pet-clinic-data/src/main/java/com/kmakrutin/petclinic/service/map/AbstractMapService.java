@@ -26,7 +26,9 @@ public class AbstractMapService<T extends BaseEntity> implements CrudService<T, 
       entity.setId( map.size() + 1L );
     }
 
-    return map.put( entity.getId(), entity );
+    map.put( entity.getId(), entity );
+
+    return entity;
   }
 
   @Override
