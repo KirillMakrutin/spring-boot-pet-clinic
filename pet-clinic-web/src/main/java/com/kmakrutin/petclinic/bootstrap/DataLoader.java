@@ -1,47 +1,77 @@
 package com.kmakrutin.petclinic.bootstrap;
 
-import com.kmakrutin.petclinic.model.Pet;
-import com.kmakrutin.petclinic.model.PetType;
-import com.kmakrutin.petclinic.service.PetTypeService;
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.kmakrutin.petclinic.model.Owner;
+import com.kmakrutin.petclinic.model.Pet;
+import com.kmakrutin.petclinic.model.Specialty;
 import com.kmakrutin.petclinic.model.Vet;
 import com.kmakrutin.petclinic.service.OwnerService;
+import com.kmakrutin.petclinic.service.PetTypeService;
+import com.kmakrutin.petclinic.service.SpecialityService;
 import com.kmakrutin.petclinic.service.VetService;
-
-import java.time.LocalDate;
 
 @Component
 public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final SpecialityService specialityService;
 
     @Autowired
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
+    public DataLoader( OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService ) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.specialityService = specialityService;
     }
 
     @Override
-    public void run(String... args) {
+    public void run( String... args )
+    {
+      if ( specialityService.findAll().isEmpty() )
+      {
+        addSpecialties();
         addOwners();
         addVets();
+      }
     }
 
-    private void addVets() {
+  private void addSpecialties()
+  {
+    Specialty radiology = new Specialty();
+    radiology.setDescription( "radiology" );
+
+    Specialty surgery = new Specialty();
+    surgery.setDescription( "surgery" );
+
+    Specialty dentist = new Specialty();
+    dentist.setDescription( "dentist" );
+
+    specialityService.save( radiology );
+    specialityService.save( surgery );
+    specialityService.save( dentist );
+
+    System.out.println("Loaded specialties");
+  }
+
+  private void addVets() {
         Vet vetTom = new Vet();
         vetTom.setFirstName("Bob");
         vetTom.setLastName("Hardy");
+        vetTom.getSpecialties().add( specialityService.findByDescription( "radiology" ) );
+        vetTom.getSpecialties().add( specialityService.findByDescription( "therapist" ) );
         vetService.save(vetTom);
 
         Vet vetCarl = new Vet();
         vetCarl.setFirstName("Clara");
         vetCarl.setLastName("Pup");
+        vetCarl.getSpecialties().add( specialityService.findByDescription( "surgery" ) );
+        vetCarl.getSpecialties().add( specialityService.findByDescription( "dentist" ) );
         vetService.save(vetCarl);
 
         System.out.println("Loaded vets");
