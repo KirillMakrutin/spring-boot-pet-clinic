@@ -1,9 +1,7 @@
 package com.kmakrutin.petclinic.repository;
 
-import org.springframework.data.repository.CrudRepository;
-
 import com.kmakrutin.petclinic.model.Specialty;
 
-public interface SpecialtyRepository extends CrudRepository<Specialty, Long>
+public interface SpecialtyRepository extends WrappedCrudRepository<Specialty, Long>
 {
 }
