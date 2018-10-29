@@ -1,5 +1,8 @@
 package com.kmakrutin.petclinic.model;
 
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class Person extends BaseEntity
 {
   private String firstName;
