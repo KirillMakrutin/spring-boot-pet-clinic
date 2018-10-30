@@ -6,6 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+
+@Data
+@EqualsAndHashCode( of = { "id" } )
 @MappedSuperclass
 public class BaseEntity implements Serializable
 {
@@ -13,13 +19,4 @@ public class BaseEntity implements Serializable
   @GeneratedValue
   private Long id;
 
-  public Long getId()
-  {
-    return id;
-  }
-
-  public void setId( Long id )
-  {
-    this.id = id;
-  }
 }

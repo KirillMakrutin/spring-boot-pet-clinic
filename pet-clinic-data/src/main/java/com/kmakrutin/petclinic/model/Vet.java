@@ -9,6 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode( callSuper = true, exclude = { "specialties" } )
 @Entity
 public class Vet extends Person
 {
@@ -18,13 +23,4 @@ public class Vet extends Person
       inverseJoinColumns = @JoinColumn( name = "specialty_id" ) )
   private Set<Specialty> specialties = new HashSet<>();
 
-  public Set<Specialty> getSpecialties()
-  {
-    return specialties;
-  }
-
-  public void setSpecialties( Set<Specialty> specialties )
-  {
-    this.specialties = specialties;
-  }
 }
