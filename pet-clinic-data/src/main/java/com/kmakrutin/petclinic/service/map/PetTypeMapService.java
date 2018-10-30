@@ -1,10 +1,13 @@
 package com.kmakrutin.petclinic.service.map;
 
-import com.kmakrutin.petclinic.model.PetType;
-import com.kmakrutin.petclinic.service.PetTypeService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import com.kmakrutin.petclinic.model.PetType;
+import com.kmakrutin.petclinic.service.PetTypeService;
+
 @Service
+@Profile( { "default", "map" } )
 public class PetTypeMapService extends AbstractMapService<PetType> implements PetTypeService {
     @Override
     public PetType findByName(String name) {

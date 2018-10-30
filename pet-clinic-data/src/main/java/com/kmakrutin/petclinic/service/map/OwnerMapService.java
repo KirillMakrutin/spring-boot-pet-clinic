@@ -1,15 +1,18 @@
 package com.kmakrutin.petclinic.service.map;
 
+import java.util.stream.Collectors;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
+
 import com.kmakrutin.petclinic.model.Owner;
 import com.kmakrutin.petclinic.model.Pet;
 import com.kmakrutin.petclinic.service.OwnerService;
 import com.kmakrutin.petclinic.service.PetService;
 import com.kmakrutin.petclinic.service.PetTypeService;
-import org.springframework.stereotype.Service;
-
-import java.util.stream.Collectors;
 
 @Service
+@Profile( { "default", "map" } )
 public class OwnerMapService extends AbstractMapService<Owner> implements OwnerService {
     private final PetTypeService petTypeService;
     private final PetService petService;
