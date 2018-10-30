@@ -7,4 +7,5 @@ import com.kmakrutin.petclinic.model.PetType;
  */
 public interface PetTypeRepository extends WrappedCrudRepository<PetType, Long>
 {
+  PetType findByName( String name );
 }

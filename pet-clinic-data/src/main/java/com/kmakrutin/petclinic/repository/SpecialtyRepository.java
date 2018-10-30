@@ -4,4 +4,5 @@ import com.kmakrutin.petclinic.model.Specialty;
 
 public interface SpecialtyRepository extends WrappedCrudRepository<Specialty, Long>
 {
+  Specialty findByDescription( String description );
 }
