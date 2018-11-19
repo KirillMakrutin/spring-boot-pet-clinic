@@ -40,7 +40,12 @@ public class AbstractMapService<T extends BaseEntity> implements CrudService<T, 
   @Override
   public void delete( T entity )
   {
-    map.values().removeIf( curEntity -> curEntity.equals( entity ) );
+    if( entity == null || entity.getId() == null )
+    {
+      return;
+    }
+
+    map.values().removeIf( curEntity -> entity.getId().equals( curEntity.getId() ) );
   }
 
   @Override
