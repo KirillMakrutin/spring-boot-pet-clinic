@@ -6,14 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.kmakrutin.petclinic.model.Owner;
 import com.kmakrutin.petclinic.service.OwnerService;
 import com.kmakrutin.petclinic.service.PetService;
 import com.kmakrutin.petclinic.service.PetTypeService;
 
+@ExtendWith( MockitoExtension.class )
 class OwnerMapServiceTest
 {
   @Mock
@@ -26,8 +28,6 @@ class OwnerMapServiceTest
   @BeforeEach
   void setUp()
   {
-    MockitoAnnotations.initMocks( this );
-
     ownerService = new OwnerMapService( petTypeService, petService );
   }
 
