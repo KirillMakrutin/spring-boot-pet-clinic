@@ -1,5 +1,8 @@
 package com.kmakrutin.petclinic.service.map;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Profile;
@@ -31,7 +34,16 @@ public class OwnerMapService extends AbstractMapService<Owner> implements OwnerS
                 .orElse(null);
     }
 
-    @Override
+  @Override
+  public List<Owner> findByLastNameLike( String lastName )
+  {
+    return findAll()
+        .stream()
+        .filter(owner -> owner.getLastName().contains( lastName ) )
+        .collect( toList() );
+  }
+
+  @Override
     public Owner save(Owner entity) {
         Owner saved = super.save(entity);
 

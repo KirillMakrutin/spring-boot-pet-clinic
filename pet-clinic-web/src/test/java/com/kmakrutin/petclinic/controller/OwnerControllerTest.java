@@ -1,13 +1,19 @@
 package com.kmakrutin.petclinic.controller;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -72,5 +78,48 @@ class OwnerControllerTest
         .andExpect( status().isOk() )
         .andExpect( view().name( "owners/ownerDetails" ) )
         .andExpect( model().attribute( "owner", owner ) );
+  }
+
+  @Test
+  void processFindFormNone() throws Exception
+  {
+    when( ownerService.findByLastNameLike( anyString() ) ).thenReturn( Collections.emptyList() );
+
+    mockMvc.perform( get( "/owners" ) )
+        .andExpect( status().isOk() )
+        .andExpect( view().name( "owners/findOwners" ) )
+        .andExpect( model().attribute( "owners", is( nullValue() ) ) );
+  }
+
+  @Test
+  void processFindFormSingle() throws Exception
+  {
+    Owner owner = new Owner();
+    owner.setId( 2L );
+    when( ownerService.findByLastNameLike( anyString() ) ).thenReturn( Collections.singletonList( owner ) );
+
+    mockMvc.perform( get( "/owners" ) )
+        .andExpect( status().is3xxRedirection() )
+        .andExpect( view().name( "redirect:/owners/2" ) );
+  }
+
+  @Test
+  void processFindFormMany() throws Exception
+  {
+    when( ownerService.findByLastNameLike( anyString() ) ).thenReturn( Arrays.asList( new Owner(), new Owner() ) );
+
+    mockMvc.perform( get( "/owners" ) )
+        .andExpect( status().isOk() )
+        .andExpect( view().name( "owners/index" ) )
+        .andExpect( model().attribute( "owners", hasSize( 2 ) ) );
+  }
+
+  @Test
+  void initFindForm() throws Exception
+  {
+    mockMvc.perform( get( "/owners/find" ) )
+        .andExpect( status().isOk() )
+        .andExpect( view().name( "owners/findOwners" ) )
+        .andExpect( model().attribute( "owner", is( notNullValue() ) ) );
   }
 }

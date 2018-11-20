@@ -22,6 +22,15 @@ public class PetTypeJpaService extends AbstractJpaService<PetType> implements Pe
   @Override
   public PetType findByName( String name )
   {
-    return petTypeRepository.findByName( name );
+    PetType byName = petTypeRepository.findByName( name );
+
+    if ( byName == null )
+    {
+      byName = new PetType();
+      byName.setName( name );
+      byName = save( byName );
+    }
+
+    return byName;
   }
 }

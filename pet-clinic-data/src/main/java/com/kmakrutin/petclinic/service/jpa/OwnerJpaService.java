@@ -1,5 +1,7 @@
 package com.kmakrutin.petclinic.service.jpa;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +25,11 @@ public class OwnerJpaService extends AbstractJpaService<Owner> implements OwnerS
   public Owner findByLastName( String lastName )
   {
     return ownerRepository.findByLastName( lastName );
+  }
+
+  @Override
+  public List<Owner> findByLastNameLike( String lastName )
+  {
+    return ownerRepository.findByLastNameIgnoreCaseContaining( lastName );
   }
 }
