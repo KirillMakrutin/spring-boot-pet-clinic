@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,4 +20,6 @@ public class BaseEntity implements Serializable
   @GeneratedValue
   private Long id;
 
+  @Transient
+  private boolean isNew;
 }

@@ -2,12 +2,15 @@ package com.kmakrutin.petclinic.controller;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kmakrutin.petclinic.model.Owner;
@@ -79,5 +82,35 @@ public class OwnerController
     model.addAttribute( "owner", ownerService.findById( ownerId ) );
 
     return "owners/ownerDetails";
+  }
+
+  @GetMapping( "/new" )
+  public String newOwner( Model model )
+  {
+    Owner newOwner = new Owner();
+    newOwner.setNew( true );
+    model.addAttribute( "owner", newOwner );
+
+    return "owners/createOrUpdateOwnerForm";
+  }
+
+  @GetMapping( "/{ownerId}/edit" )
+  public String editOwner( @PathVariable long ownerId, Model model )
+  {
+    model.addAttribute( "owner", ownerService.findById( ownerId ) );
+
+    return "owners/createOrUpdateOwnerForm";
+  }
+
+  @PostMapping
+  public String saveOrUpdateOwner( @Valid Owner owner, BindingResult result )
+  {
+    if ( result.hasErrors() )
+    {
+      return "owners/createOrUpdateOwnerForm";
+    }
+
+    Owner saved = ownerService.save( owner );
+    return "redirect:/owners/" + saved.getId();
   }
 }
